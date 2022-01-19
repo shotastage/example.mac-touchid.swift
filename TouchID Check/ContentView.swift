@@ -6,11 +6,27 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 struct ContentView: View {
+
+    var context = LAContext()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Button("Check Touch ID") {
+            let reason = "Log in with Face ID"
+            context.evaluatePolicy(
+                // .deviceOwnerAuthentication allows
+                // biometric or passcode authentication
+                .deviceOwnerAuthentication,
+                localizedReason: reason
+            ) { success, error in
+                if success {
+                    // Handle successful authentication
+                } else {
+                    // Handle LAError error
+                }
+            }
+        }
     }
 }
 
